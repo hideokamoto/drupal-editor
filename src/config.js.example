@@ -1,0 +1,8 @@
+const username = 'username'
+const password = 'password'
+const endpoint = 'http://drupal.example.com'
+export default {
+  username,
+  password,
+  endpoint
+}
