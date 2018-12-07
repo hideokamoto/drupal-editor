@@ -1,5 +1,4 @@
 import React from 'react';
-import 'whatwg-fetch'
 import axios from 'axios';
 import config from './config'
 import ReactHTML from './HTML';
@@ -13,7 +12,6 @@ const ViewContent = ({fetching, error, item}) => {
       {error ? error : <ReactHTML html={item.body[0].value} />}
     </article>
   )
-
 }
 
 class ReactViewer extends React.Component {
