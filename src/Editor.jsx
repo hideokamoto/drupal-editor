@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { Editor } from '@tinymce/tinymce-react';
 import config from './config';
 
 const createPostQuery = (endpoint, post) => {
-  const { title, content } = post
+  const { title, content, editor } = post
   if (!title || !content) return new Error('Error: title and content is required')
   const node = {
     _links: {
@@ -17,7 +18,11 @@ const createPostQuery = (endpoint, post) => {
     title: {
       value: title
     },
-    body: {
+    body: [{
+      format: 'basic_html',
+      value: editor
+    }],
+    field_example: {
       value: content
     }
   };
@@ -84,12 +89,18 @@ class ReactEditor extends React.Component {
     username: config.username,
     password: config.password,
     content: '',
+    editor: '',
     result: '',
     createdLink: ''
   }
   handleChange = ({target}) => {
     this.setState({
       [target.name]: target.value
+    })
+  }
+  handleEditorChange = (e) => {
+    this.setState({
+      editor: e.target.getContent()
     })
   }
   handleSubmit = async (e) => {
@@ -142,6 +153,33 @@ class ReactEditor extends React.Component {
                     name="content"
                     value={content}
                   />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Editor
+                </th>
+                <td>
+                <Editor
+                  initialValue="<p>This is the initial content of the editor</p>"
+                  init={{
+                    plugins: 'link image code',
+                    language: "en",
+                    menubar: false,
+                    toolbar: 'undo redo | bold italic image | alignleft aligncenter alignright | code',
+                    file_picker_types: 'file image media',
+                    images_upload_url: 'http://localhost:3000',
+                    images_upload_handler: function (blobInfo, success, failure) {
+                      setTimeout(function() {
+                        // no matter what you upload, we will turn it into TinyMCE logo :)
+                        success('https://raw.githubusercontent.com/ask-utils/ask-utils/master/docs/img/logo.png');
+                      }, 2000);
+                    },
+                    
+                    automatic_uploads: true
+                  }}
+                  onChange={this.handleEditorChange}
+                />
                 </td>
               </tr>
             </tbody>
