@@ -15,6 +15,8 @@ export default {
   password,
   endpoint
 }
+
+$ yarn start
 ```
 
 ===
