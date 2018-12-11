@@ -1,3 +1,24 @@
+## Getting Started
+
+```
+$ git clone git@github.com:hideokamoto/drupal-editor.git
+$ cd drupal-editor
+$ yarn install
+$ cp ./src/config.js.example ./src/config.js
+$ vim ./src/config.js
+
+const username = 'YOUR_DRUPAL_USERNAME'
+const password = 'YOUR_DRUPAL_PASSWORD'
+const endpoint = 'http://YOUR.DRUPAL.SITE'
+export default {
+  username,
+  password,
+  endpoint
+}
+```
+
+===
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
